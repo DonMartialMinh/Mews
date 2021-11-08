@@ -4,6 +4,7 @@ import 'package:mews/Values/font_sizes.dart';
 import 'package:mews/Values/images.dart';
 import 'package:mews/Widgets/custom_text.dart';
 import 'package:mews/Widgets/dock_button.dart';
+import 'package:mews/routes.dart';
 
 class BoardingPage extends StatelessWidget {
   @override
@@ -53,6 +54,9 @@ class BoardingPage extends StatelessWidget {
                 ),
                 child: DockButton(
                   name: "GET START",
+                  onPressed: () {
+                    Navigator.pushNamed(context, RoutePaths.SIGNIN);
+                  },
                 ),
               ),
             ),

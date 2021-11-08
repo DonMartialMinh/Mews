@@ -1,17 +1,22 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:mews/Pages/SignInPage/sign_in_page.dart';
 
-// We use name route
-// All our routes will be available here
-final Map<String, WidgetBuilder> routes = {
-  // SplashScreen.routeName: (context) => SplashScreen(),
-  // SignInScreen.routeName: (context) => SignInScreen(),
-  // ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
-  // LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),
-  // SignUpScreen.routeName: (context) => SignUpScreen(),
-  // CompleteProfileScreen.routeName: (context) => CompleteProfileScreen(),
-  // OtpScreen.routeName: (context) => OtpScreen(),
-  // HomeScreen.routeName: (context) => HomeScreen(),
-  // DetailsScreen.routeName: (context) => DetailsScreen(),
-  // CartScreen.routeName: (context) => CartScreen(),
-  // ProfileScreen.routeName: (context) => ProfileScreen(),
-};
+class RoutePaths {
+  static const String SIGNUP = "/SignUpPage";
+  static const String SIGNIN = "/SignInPage";
+}
+
+class Routes {
+  static Route<dynamic>? generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      // case RoutePaths.SIGNUP:
+      //   return MaterialPageRoute(
+      //       builder: (_) => SignUpPage(), settings: settings);
+      case RoutePaths.SIGNIN:
+        return MaterialPageRoute(
+            builder: (_) => SignInPage(), settings: settings);
+      default:
+        return null;
+    }
+  }
+}

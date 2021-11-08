@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mews/main_page.dart';
+import 'package:mews/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(fontFamily: 'NunitoSans'),
+      onGenerateRoute: Routes.generateRoute,
       home: const MainPage(),
     );
   }
