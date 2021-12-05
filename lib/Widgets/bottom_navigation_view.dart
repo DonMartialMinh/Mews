@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mews/Values/dimens.dart';
 
 class BottomTabType {
-  static const HOME = 0;
+  static const NEWS = 0;
   static const TRENDING = 1;
   static const NOTIFICATION = 2;
   static const PROFILE = 3;
