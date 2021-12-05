@@ -13,4 +13,5 @@ class AppColor {
   static const Color indicator = Color(0xFF555555);
 
   static const Color colorRatingStar = Color(0XFFFFCE31);
+  static const Color colorDropShadow = Color(0XFF8A959E);
 }
