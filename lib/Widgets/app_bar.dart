@@ -33,6 +33,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget _buildTitle() {
     return DefaultTextStyle(
         style: const TextStyle(fontSize: FontSize.BIG, color: Colors.black),
-        child: this.title ?? SizedBox.shrink());
+        child: title ?? const SizedBox.shrink());
   }
 }

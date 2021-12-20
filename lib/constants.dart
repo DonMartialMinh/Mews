@@ -10,4 +10,20 @@ class AppConstants {
   static const String kMatchPassError = "Passwords don't match";
   static const String kNamelNullError = "Please Enter your name";
   static const String kPhoneNumberNullError = "Please Enter your phone number";
+
+  static const String hot = "HotNewsPage";
+  static const String all = "AllNewsPage";
+  static const String technology = "TechnolotyNewsPage";
+  static const String civil = "CivilNewsPage";
+  static const String entertainment = "EntertainmentNewsPage";
+}
+
+enum NewsCategory {
+  general,
+  business,
+  technology,
+  science,
+  sports,
+  health,
+  entertainment,
 }

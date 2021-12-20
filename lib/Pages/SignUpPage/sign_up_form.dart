@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:mews/Authentication/authentication.dart';
 import 'package:mews/Values/colors.dart';
 import 'package:mews/Values/dimens.dart';
 import 'package:mews/Values/font_sizes.dart';
+import 'package:mews/Widgets/custom_text.dart';
 import 'package:mews/Widgets/dock_button.dart';
 import 'package:mews/Widgets/form_error.dart';
 import 'package:mews/constants.dart';
@@ -15,11 +17,11 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController? name;
-  TextEditingController? phoneNumber;
-  TextEditingController? email;
-  TextEditingController? password;
-  TextEditingController? conformPassword;
+  final name = TextEditingController();
+  final phoneNumber = TextEditingController();
+  final email = TextEditingController();
+  final password = TextEditingController();
+  final conformPassword = TextEditingController();
   bool _passwordVisible = false;
   bool _conformPasswordVisible = false;
   final List<String?> errors = [];
@@ -79,8 +81,34 @@ class _SignUpFormState extends State<SignUpForm> {
             child: DockButton(
               name: 'SIGN UP',
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
+                if (_formKey.currentState!.validate() && errors.isEmpty) {
                   _formKey.currentState!.save();
+                  AuthenticationHelper()
+                      .signUp(email.text, password.text)
+                      .then((result) {
+                    if (result == null) {
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        duration: const Duration(milliseconds: 800),
+                        content: CustomText(
+                          'User created',
+                          fontSize: FontSize.MEDIUM,
+                          color: Colors.white,
+                        ),
+                      ));
+                      Future.delayed(const Duration(milliseconds: 1100), () {
+                        Navigator.pop(context);
+                      });
+                    } else {
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        duration: const Duration(milliseconds: 2000),
+                        content: CustomText(
+                          result,
+                          fontSize: FontSize.MEDIUM,
+                          color: Colors.white,
+                        ),
+                      ));
+                    }
+                  });
                 }
               },
             ),
@@ -117,19 +145,20 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildConformPassFormField() {
     return TextFormField(
+      controller: conformPassword,
       obscureText: !_conformPasswordVisible,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: AppConstants.kPassNullError);
         }
-        if (value.isNotEmpty && password == conformPassword) {
+        if (value.isNotEmpty && password.text == value) {
           removeError(error: AppConstants.kMatchPassError);
         }
       },
       validator: (value) {
         if (value!.isEmpty) {
           addError(error: AppConstants.kPassNullError);
-        } else if ((password != value)) {
+        } else if ((value != conformPassword.text)) {
           addError(error: AppConstants.kMatchPassError);
         }
         return null;
@@ -156,6 +185,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      controller: password,
       obscureText: !_passwordVisible,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -192,6 +222,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      controller: email,
       keyboardType: TextInputType.emailAddress,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -219,6 +250,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildNameFormField() {
     return TextFormField(
+      controller: name,
       keyboardType: TextInputType.name,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -241,6 +273,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildPhoneNumberFormField() {
     return TextFormField(
+      controller: phoneNumber,
       keyboardType: TextInputType.phone,
       onChanged: (value) {
         if (value.isNotEmpty) {

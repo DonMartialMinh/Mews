@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "472041280713",
+    "project_id": "mews-64ae1",
+    "storage_bucket": "mews-64ae1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472041280713:android:4780e79fcf9982ecb56918",
+        "android_client_info": {
+          "package_name": "com.example.mews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "472041280713-es2e624gp3d9f7unsc2vcds8c180aqik.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfyBx7RT_xQ_MTnmZ-0xGOGhiU2LWJLqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "472041280713-es2e624gp3d9f7unsc2vcds8c180aqik.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "472041280713-33rkg1pnc7705qtp9odunvi5a97jifbk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mews"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

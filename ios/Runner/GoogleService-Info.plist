@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>472041280713-33rkg1pnc7705qtp9odunvi5a97jifbk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.472041280713-33rkg1pnc7705qtp9odunvi5a97jifbk</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDPd-RkD8AjIL5uf3LQjfZVx1VaaxF6ZwY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>472041280713</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.mews</string>
+	<key>PROJECT_ID</key>
+	<string>mews-64ae1</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mews-64ae1.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:472041280713:ios:04c26c92e8d34e20b56918</string>
+</dict>
+</plist>

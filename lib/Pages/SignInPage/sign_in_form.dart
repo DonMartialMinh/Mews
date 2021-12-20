@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:mews/Authentication/authentication.dart';
 import 'package:mews/Values/colors.dart';
 import 'package:mews/Values/dimens.dart';
 import 'package:mews/Values/font_sizes.dart';
@@ -8,6 +9,7 @@ import 'package:mews/Widgets/dock_button.dart';
 import 'package:mews/Widgets/form_error.dart';
 import 'package:mews/constants.dart';
 import 'package:mews/routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignForm extends StatefulWidget {
   @override
@@ -16,8 +18,8 @@ class SignForm extends StatefulWidget {
 
 class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController? email;
-  TextEditingController? password;
+  final email = TextEditingController();
+  final password = TextEditingController();
   bool _passwordVisible = false;
   final List<String?> errors = [];
 
@@ -67,14 +69,39 @@ class _SignFormState extends State<SignForm> {
               horizontal: AppDimen.horizontalSpacing,
             ),
             child: DockButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
+              onPressed: () async {
+                if (_formKey.currentState!.validate() && errors.isEmpty) {
                   _formKey.currentState!.save();
-                  // if all are valid then go to success screen
-                  //KeyboardUtil.hideKeyboard(context);
-                  //Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.setString('email', 'useremail@gmail.com');
+                  AuthenticationHelper()
+                      .signIn(email.text, password.text)
+                      .then((result) {
+                    if (result == null) {
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        duration: const Duration(milliseconds: 800),
+                        content: CustomText(
+                          'Login success',
+                          fontSize: FontSize.MEDIUM,
+                          color: Colors.white,
+                        ),
+                      ));
+                      Future.delayed(const Duration(milliseconds: 1100), () {
+                        Navigator.pushNamed(context, RoutePaths.HOME);
+                      });
+                    } else {
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        duration: const Duration(milliseconds: 2000),
+                        content: CustomText(
+                          result,
+                          fontSize: FontSize.MEDIUM,
+                          color: Colors.white,
+                        ),
+                      ));
+                    }
+                  });
                 }
-                Navigator.pushNamed(context, RoutePaths.HOME);
               },
               name: "SIGN IN",
             ),
@@ -112,6 +139,7 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      controller: password,
       obscureText: !_passwordVisible,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -149,6 +177,7 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      controller: email,
       keyboardType: TextInputType.emailAddress,
       onChanged: (value) {
         if (value.isNotEmpty) {

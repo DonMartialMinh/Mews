@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mews/Pages/NewsPage/news_page.dart';
 import 'package:mews/Pages/NotificationPage/notification_page.dart';
@@ -5,6 +7,7 @@ import 'package:mews/Pages/ProfilePage/profile_page.dart';
 import 'package:mews/Pages/TrendingPage/trending_page.dart';
 import 'package:mews/Values/colors.dart';
 import 'package:mews/Widgets/bottom_navigation_view.dart';
+import 'package:mews/Widgets/custom_text.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -36,39 +39,67 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Scaffold(
-        body: TabBarView(
-          physics: NeverScrollableScrollPhysics(),
-          controller: _tabController,
-          children: _tabs,
-        ),
-        bottomNavigationBar: Container(
-          padding: EdgeInsets.only(bottom: 16.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: AppColor.colorDropShadow.withOpacity(0.20),
-                spreadRadius: 0.0,
-                blurRadius: 50.0,
-                offset: Offset(0.0, -2.0), // changes position of shadow
+    return WillPopScope(
+      onWillPop: () async {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: CustomText('Are you sure?'),
+            content: CustomText('Do you want to exit an App'),
+            actions: <Widget>[
+              GestureDetector(
+                onTap: () => Navigator.of(context).pop(false),
+                child: CustomText(
+                  "NO",
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              const SizedBox(height: 16),
+              GestureDetector(
+                onTap: () => exit(0),
+                child: CustomText(
+                  "YES",
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
             ],
           ),
-          child: BottomNavigationView(listener: _clickTab),
+        );
+        return true;
+      },
+      child: Container(
+        color: Colors.white,
+        child: Scaffold(
+          body: TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
+            controller: _tabController,
+            children: _tabs,
+          ),
+          bottomNavigationBar: Container(
+            //padding: const EdgeInsets.only(bottom: 10.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColor.colorDropShadow.withOpacity(0.20),
+                  spreadRadius: 0.0,
+                  blurRadius: 50.0,
+                  offset: const Offset(0.0, -2.0), // changes position of shadow
+                ),
+              ],
+            ),
+            child: BottomNavigationView(
+              listener: _clickTab,
+            ),
+          ),
         ),
       ),
     );
   }
 
   void _clickTab(int index, bool isDoubleTab) {
-    // final _isLoggedIn = false;
-    // if (!_isLoggedIn && index == 4) {
-    //   Navigator.of(context).pushNamed(RoutePaths.LOGIN_PAGE);
-    // } else {
     _tabController.animateTo(index);
-    // }
   }
 }

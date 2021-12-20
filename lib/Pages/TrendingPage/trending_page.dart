@@ -17,6 +17,7 @@ class TrendingPage extends StatelessWidget {
         leading: Container(),
         title: CustomText(
           'Trending',
+          fontWeight: FontWeight.w700,
           fontSize: FontSize.BIG,
         ));
   }

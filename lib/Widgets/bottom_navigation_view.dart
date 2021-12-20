@@ -13,7 +13,8 @@ typedef OnBottomNavigationListener(int index, bool isDoubleTab);
 class BottomNavigationView extends StatefulWidget {
   final OnBottomNavigationListener listener;
 
-  BottomNavigationView({required this.listener});
+  const BottomNavigationView({Key? key, required this.listener})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -29,7 +30,7 @@ class _BottomNavigationViewState extends State<BottomNavigationView> {
   Widget build(BuildContext context) {
     return Container(
       height: 55,
-      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
       //   decoration: BoxDecoration(color: Colors.red),
       child: Row(
         children: [
