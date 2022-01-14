@@ -79,7 +79,6 @@ class _ArticlePageState extends State<ArticlePage> {
     return false;
   }
 
-  @override
   CustomAppBar _buildAppBar() {
     return CustomAppBar(
       leading: GestureDetector(
@@ -92,7 +91,7 @@ class _ArticlePageState extends State<ArticlePage> {
         ),
       ),
       title: CustomText(
-        widget.article!.source!.name!,
+        widget.article!.newname!,
         fontWeight: FontWeight.w600,
       ),
       actions: [

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:loadmore/loadmore.dart';
 import 'package:mews/Models/article.dart';
 import 'package:mews/Services/api_services.dart';
 import 'package:mews/Widgets/custom_listtile.dart';
@@ -15,6 +16,7 @@ class CategoryNewsPage extends StatefulWidget {
 class _CategoryNewsPageState extends State<CategoryNewsPage> {
   ApiService client = ApiService();
   late Future<List<Article>> articles;
+  int count = 0;
 
   @override
   void initState() {
@@ -43,14 +45,52 @@ class _CategoryNewsPageState extends State<CategoryNewsPage> {
                   await client.getArticle(widget.category);
               freshArticles.shuffle();
               setState(() {
+                count = 0;
                 articles = Future.value(freshArticles);
               });
             },
-            child: ListView.builder(
-              //Now let's create our custom List tile
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) =>
-                  customListTile(snapshot.data![index], context),
+            child: LoadMore(
+              textBuilder: (LoadMoreStatus status) {
+                String text;
+                switch (status) {
+                  case LoadMoreStatus.fail:
+                    text = "End of the field";
+                    break;
+                  case LoadMoreStatus.idle:
+                    text = "Wait for loading...";
+                    break;
+                  case LoadMoreStatus.loading:
+                    text = "Loading...";
+                    break;
+                  case LoadMoreStatus.nomore:
+                    text = "End of the field";
+                    break;
+                  default:
+                    text = "";
+                }
+                return text;
+              },
+              isFinish: snapshot.data!.length > 20,
+              onLoadMore: () async {
+                count++;
+                List<Article> moreArticles =
+                    await client.getArticle(widget.category, count: count);
+                moreArticles.shuffle();
+                if (moreArticles.isEmpty == false) {
+                  setState(() {
+                    articles =
+                        Future.value([...snapshot.data!, ...moreArticles]);
+                  });
+                  return true;
+                }
+                return false;
+              },
+              child: ListView.builder(
+                //Now let's create our custom List tile
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) =>
+                    customListTile(snapshot.data![index], context),
+              ),
             ),
           );
         }

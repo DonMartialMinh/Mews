@@ -14,13 +14,14 @@ class NewsPage extends StatefulWidget {
 }
 
 List<Widget> _listWidgets = [
-  CategoryNewsPage(category: NewsCategory.general),
+  CategoryNewsPage(category: NewsCategory.news),
+  CategoryNewsPage(category: NewsCategory.world),
+  CategoryNewsPage(category: NewsCategory.social),
+  CategoryNewsPage(category: NewsCategory.law),
   CategoryNewsPage(category: NewsCategory.business),
-  CategoryNewsPage(category: NewsCategory.science),
-  CategoryNewsPage(category: NewsCategory.technology),
+  CategoryNewsPage(category: NewsCategory.sport),
   CategoryNewsPage(category: NewsCategory.health),
   CategoryNewsPage(category: NewsCategory.entertainment),
-  CategoryNewsPage(category: NewsCategory.sports),
 ];
 
 class _NewsPageState extends State<NewsPage> {
@@ -61,13 +62,14 @@ class _NewsPageState extends State<NewsPage> {
             indicatorSize: TabBarIndicatorSize.tab,
             isScrollable: true,
             tabs: [
-              _buildTabText('General'),
+              _buildTabText('News'),
+              _buildTabText('World'),
+              _buildTabText('Social'),
+              _buildTabText('Law'),
               _buildTabText('Business'),
-              _buildTabText('Science'),
-              _buildTabText('Technology'),
+              _buildTabText('Sport'),
               _buildTabText('Health'),
               _buildTabText('Entertainment'),
-              _buildTabText('Sports')
             ],
           ),
         ),

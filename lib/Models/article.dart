@@ -1,63 +1,55 @@
 import 'package:mews/Models/source.dart';
 
 class Article {
-  Source? source;
-  String? author;
+  String? id;
+  String? newname;
   String? title;
-  String? description;
   String? url;
-  String? urlToImage;
-  String? publishedAt;
-  String? content;
+  String? imageurl;
+  String? category;
+  String? time;
 
   Article(
-      {this.source,
-      this.author,
+      {this.id,
+      this.newname,
       this.title,
-      this.description,
+      this.category,
       this.url,
-      this.urlToImage,
-      this.publishedAt,
-      this.content});
+      this.imageurl,
+      this.time});
 
   factory Article.fromJson(Map<String, dynamic> json) {
     return Article(
-      source: Source.fromJson(json['source']),
-      author: json['author'],
-      title: json['title'],
-      description: json['description'],
-      url: json['url'],
-      urlToImage: json['urlToImage'],
-      publishedAt: json['publishedAt'],
-      content: json['content'],
-    );
+        id: json['_id'],
+        url: json['url'],
+        title: json['title'],
+        category: json['category'],
+        imageurl: json['imageurl'],
+        time: json['time'],
+        newname: json['newname']);
   }
 
   factory Article.fromJsonDynamic(dynamic json) {
     return Article(
-      source: Source.fromJson(json['source']),
-      author: json['author'],
-      title: json['title'],
-      description: json['description'],
+      id: json['_id'],
       url: json['url'],
-      urlToImage: json['urlToImage'],
-      publishedAt: json['publishedAt'],
-      content: json['content'],
+      title: json['title'],
+      category: json['category'],
+      imageurl: json['imageurl'],
+      time: json['time'],
+      newname: json['newname'],
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = new Map<String, dynamic>();
-    if (source != null) {
-      map['source'] = source!.toJson();
-    }
-    map['author'] = author;
-    map['title'] = title;
-    map['description'] = description;
+    map['_id'] = id;
     map['url'] = url;
-    map['urlToImage'] = urlToImage;
-    map['publishedAt'] = publishedAt;
-    map['content'] = content;
+    map['title'] = title;
+    map['category'] = category;
+    map['imageurl'] = imageurl;
+    map['time'] = time;
+    map['newname'] = newname;
     return map;
   }
 }

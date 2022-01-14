@@ -6,7 +6,7 @@ import 'package:mews/Values/images.dart';
 import '../Pages/ArticlePage/article_page.dart';
 import 'custom_text.dart';
 
-Widget customListTile(Article article, BuildContext context) {
+Widget trendingListTile(Article article, BuildContext context) {
   String time = article.time!;
   return InkWell(
     onTap: () {
@@ -18,6 +18,8 @@ Widget customListTile(Article article, BuildContext context) {
                   )));
     },
     child: Container(
+      width: 300,
+      //height: 300,
       margin: const EdgeInsets.all(12.0),
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
@@ -88,10 +90,12 @@ Widget customListTile(Article article, BuildContext context) {
           const SizedBox(
             height: 8.0,
           ),
-          CustomText(
-            article.title ?? "",
-            fontWeight: FontWeight.bold,
-            fontSize: FontSize.BIG,
+          Expanded(
+            child: CustomText(
+              article.title ?? "",
+              fontWeight: FontWeight.bold,
+              fontSize: FontSize.BIG,
+            ),
           ),
         ],
       ),

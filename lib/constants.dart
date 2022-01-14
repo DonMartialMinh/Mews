@@ -19,11 +19,16 @@ class AppConstants {
 }
 
 enum NewsCategory {
-  general,
+  all,
+  news,
+  world,
+  social,
+  law,
   business,
-  technology,
-  science,
-  sports,
+  sport,
   health,
   entertainment,
+  trending,
+  peoplemayread,
+  notification
 }

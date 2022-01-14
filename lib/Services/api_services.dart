@@ -16,17 +16,23 @@ class ApiService {
   //Now let's create the http request function
   // but first let's import the http package
 
-  Future<List<Article>> getArticle(NewsCategory category) async {
-    endPointUrl =
-        "http://newsapi.org/v2/top-headlines?country=us&category=${category.toString().split('.').last}&apiKey=99b6696f068d4885b25395817abff209";
+  Future<List<Article>> getArticle(NewsCategory category,
+      {int count = 0}) async {
+    if (category == NewsCategory.all) {
+      endPointUrl =
+          "https://ancient-gorge-54139.herokuapp.com/api/get/all/$count";
+    } else {
+      endPointUrl =
+          "https://ancient-gorge-54139.herokuapp.com/api/get/$count/filter?category=${category.toString().split('.').last}";
+    }
 
     Response res = await get(Uri.parse(endPointUrl));
 
     //first of all let's check that we got a 200 statu code: this mean that the request was a succes
     if (res.statusCode == 200) {
-      Map<String, dynamic> json = jsonDecode(res.body);
+      //Map<String, dynamic> json = jsonDecode(res.body);
 
-      List<dynamic> body = json['articles'];
+      List<dynamic> body = jsonDecode(res.body);
 
       //this line will allow us to get the different articles from the json file and putting them into a list
       List<Article> articles =
